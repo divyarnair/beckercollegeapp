@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/1b99dd44bf.js" crossorigin="anonymous"></script>
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+            <form action="submitted" method="POST" class="form-horizontal" role="form">
+                {% csrf_token %}
+                <h2>Registration</h2>
+                <div class="form-group">
+                    <label for="first_name" class="col-sm-3 control-label">Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="first_name" placeholder="Name" class="form-control" name="Name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="birthday" class="col-sm-3 control-label">Date of Birth</label>
+                    <div class="col-sm-9">
+                        <input type="date" id="birthday" class="form-control" name="birthDate">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Age" class="col-sm-3 control-label">Age</label>
+                    <div class="col-sm-9">
+                        <input type="number" id="Age" placeholder="Age" class="form-control" name="Age">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="gender" class="control-label col-sm-3">Gender</label>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="radio-inline">Female</label>
+                                    <input type="radio" id="gender" value="Female" name="gender">
+
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="radio-inline">Male</label>
+                                    <input type="radio" value="Male" name="gender">
+
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="radio-inline">Other</label>
+                                    <input type="radio" value="Other" name="gender" >
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNumber" class="col-sm-3 control-label">Phone number </label>
+                    <div class="col-sm-9">
+                        <input type="phoneNumber" id="phoneNumber" placeholder="Phone number" class="form-control" name="PhoneNumber">
+                        <span class="help-block">Your phone number won't be disclosed anywhere </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-sm-3 control-label">Email</label>
+                    <div class="col-sm-9">
+                        <input type="email" id="email" placeholder="Email" class="form-control" name= "email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="text" class="col-sm-3 control-label">Address </label>
+                    <div class="col-sm-9">
+                        <input type="address" id="text" placeholder="Enter your Address" class="form-control" name= "address">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="text">Department</label>
+                    <div class="col-sm-9">
+                        <select id="departments" onchange="updateCourses()">
+                            <option value="">Select Department</option>
+                            <option value="maths">Maths</option>
+                            <option value="science">Science</option>
+                            <option value="commerce">Commerce</option>
+                            <option value="humanities">Humanities</option>
+                            <option value="arts">Arts</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="text">Courses</label>
+                    <div class="col-sm-9">
+                        <select id="courses">
+                            <option value="">Select Course</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="text">Purpose</label>
+                    <div class="col-sm-9">
+                        <select id="purpose">
+                            <option value="">Select</option>
+                            <option value="enquiry">For Enquiry</option>
+                            <option value="order">Place Order</option>
+                            <option value="return">Return</option>
+                        </select>
+                    </div>
+                </div>
+
+               <div class="form-group">
+                    <label for="text">Materials Required</label>
+                    <div class="col-sm-9">
+                        <div id="materials">
+                            <label><input type="checkbox" name="material" value="notebook"> Notebooks</label><br>
+                            <label><input type="checkbox" name="material" value="pen"> Pens</label><br>
+                            <label><input type="checkbox" name="material" value="papers"> Exam Papers</label><br>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-primary btn-block" href="home" style="position: fixed; top: 10px; right: 10px;">LOGOUT</a>
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+
+
+            </form>
+</div>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script>
+    function updateCourses() {
+        var selectedDepartment = document.getElementById("departments").value;
+        var coursesDropdown = document.getElementById("courses");
+
+        coursesDropdown.innerHTML = '<option value="">Select Course</option>';
+
+        //courses based on selected department
+        if (selectedDepartment === "maths") {
+            coursesDropdown.innerHTML += '<option value="engineering">Engineering</option>';
+            coursesDropdown.innerHTML += '<option value="MCA">MCA</option>';
+            coursesDropdown.innerHTML += '<option value="BCA">BCA</option>';
+        } else if (selectedDepartment === "science") {
+            coursesDropdown.innerHTML += '<option value="MBBS">MBBS</option>';
+            coursesDropdown.innerHTML += '<option value="BDS">BDS</option>';
+            coursesDropdown.innerHTML += '<option value="BAMS">BAMS</option>';
+        } else if (selectedDepartment === "commerce") {
+            coursesDropdown.innerHTML += '<option value="B.Com">B.Com</option>';
+            coursesDropdown.innerHTML += '<option value="BBA">BBA</option>';
+            coursesDropdown.innerHTML += '<option value="M.Com">M.Com</option>';
+        } else if (selectedDepartment === "humanities") {
+            coursesDropdown.innerHTML += '<option value="horticulture">Horticulture</option>';
+            coursesDropdown.innerHTML += '<option value="bsc">BSC</option>';
+            coursesDropdown.innerHTML += '<option value="biochemistry">Biochemistry</option>';
+        } else if (selectedDepartment === "arts") {
+            coursesDropdown.innerHTML += '<option value="BA">BA</option>';
+            coursesDropdown.innerHTML += '<option value="MA">MA</option>';
+            coursesDropdown.innerHTML += '<option value="Fine Arts">Fine Arts</option>';
+        }
+    }
+</script>
+</body>
+</html>
