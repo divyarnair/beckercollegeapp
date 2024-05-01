@@ -64,21 +64,26 @@ def form(request):
 
 def submitted(request):
     if request.method == 'POST':
-        Name = request.POST['Name']
-        birthDate = request.POST['birthDate']
-        Age = request.POST['Age']
+        name = request.POST['name']
+        birth_date = request.POST['birthDate']
+        age = request.POST['age']
         gender = request.POST['gender']
-        PhoneNumber = request.POST['PhoneNumber']
+        phone_number = request.POST['phoneNumber']
         address = request.POST['address']
         email = request.POST['email']
-        if Customer.objects.filter(Email=email).exists():
-            return HttpResponse('Error, Email already exist')
+
+        if Customer.objects.filter(email=email).exists():
+            return HttpResponse('Error, This email already exists')
         else:
-            new_user = Customer(name=Name, Age=Age, birthDate=birthDate, Email=email, gender=gender,phoneNumber=PhoneNumber, address=address)
+            new_user = Customer(name=name, age=age, birthDate=birth_date, gender=gender, email=email,
+                                phoneNumber=phone_number, address=address)
             new_user.save()
             return redirect('submitted')
     return render(request, "submitted.html")
 
+
+def submitted(request):
+    return render(request, 'submitted.html')
 def logout(request):
     return render(request,"home.html")
 def homepage(request):
